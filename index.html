@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ejercicios Flexbox – Programación Web</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:#0d0f14; --surface:#161a24; --card:#1e2333;
+      --accent:#5bffb5; --accent2:#ff6b6b; --accent3:#6b9fff;
+      --text:#e8eaf0; --muted:#7a8099; --border:#2a2f42;
+      --radius:12px; --mono:'Space Mono',monospace; --sans:'DM Sans',sans-serif;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;}
+
+    .doc-header{background:var(--surface);border-bottom:1px solid var(--border);padding:2rem 3rem;text-align:center;}
+    .doc-header h1{font-family:var(--mono);font-size:1.1rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.4rem;}
+    .doc-header p{color:var(--muted);font-size:.95rem;}
+
+    .section-label{display:flex;align-items:center;gap:1rem;padding:2.5rem 3rem 1rem;}
+    .section-label .badge{font-family:var(--mono);font-size:.75rem;background:var(--accent);color:#000;padding:.25rem .75rem;border-radius:999px;font-weight:700;white-space:nowrap;}
+    .section-label h2{font-size:1.1rem;font-weight:600;color:var(--text);}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+
+
+    /* ── EJ1 ── */
+    .ej1-wrapper{padding:0 3rem 2rem;}
+    nav.navbar{display:flex;justify-content:space-between;align-items:center;width:100%;height:70px;background:#111827;border:1px solid var(--border);border-radius:var(--radius);padding:0 2rem;}
+    .navbar .logo{font-family:var(--mono);font-size:1.25rem;font-weight:700;color:var(--accent);letter-spacing:.05em;}
+    .navbar ul{display:flex;align-items:center;gap:2rem;list-style:none;}
+    .navbar ul li a{text-decoration:none;color:var(--muted);font-size:.9rem;font-weight:500;transition:color .2s;}
+    .navbar ul li a:hover{color:var(--accent);}
+    .nav-item-contact{position:relative;}
+    .contact-dropdown{display:none;position:absolute;top:calc(100% + 10px);right:0;background:#111827;border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;min-width:190px;z-index:100;}
+    .nav-item-contact:hover .contact-dropdown{display:block;}
+    .contact-dropdown p{font-size:.75rem;color:var(--muted);margin-bottom:.3rem;}
+    .contact-dropdown strong{color:var(--accent);font-family:var(--mono);font-size:.85rem;}
+
+    /* ── Secciones navbar ── */
+    .nav-section{padding:0 3rem 2.5rem;}
+    .section-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;}
+
+    .services-grid{display:flex;flex-wrap:wrap;gap:1rem;}
+    .service-card{flex:1;min-width:200px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;}
+    .service-card .s-icon{font-size:1.6rem;margin-bottom:.5rem;}
+    .service-card h4{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.4rem;}
+    .service-card p{font-size:.82rem;color:var(--muted);}
+    .service-price{margin-top:.75rem;font-family:var(--mono);font-size:.8rem;color:var(--accent);}
+
+    .photo-gallery{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;}
+    .photo-item{position:relative;border-radius:10px;overflow:hidden;width:180px;flex-shrink:0;}
+    .photo-item img{width:100%;height:130px;object-fit:cover;display:block;transition:transform .3s;}
+    .photo-item:hover img{transform:scale(1.05);}
+    .photo-caption{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.6);color:#fff;font-size:.72rem;padding:.35rem .5rem;font-family:var(--mono);}
+
+    .blog-list{display:flex;flex-direction:column;gap:1rem;}
+    .blog-item{display:flex;gap:1rem;align-items:flex-start;border-bottom:1px solid var(--border);padding-bottom:1rem;}
+    .blog-item:last-child{border-bottom:none;}
+    .blog-date{font-family:var(--mono);font-size:.7rem;color:var(--muted);min-width:80px;padding-top:.2rem;}
+    .blog-content h4{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.3rem;}
+    .blog-content p{font-size:.82rem;color:var(--muted);}
+    .blog-tag{display:inline-block;font-size:.65rem;font-family:var(--mono);background:var(--card);border:1px solid var(--border);padding:.15rem .5rem;border-radius:4px;color:var(--accent3);margin-bottom:.4rem;}
+
+    .contact-block{display:flex;gap:2rem;align-items:flex-start;flex-wrap:wrap;}
+    .contact-info h4{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:.3rem;}
+    .contact-info .subtitle{font-size:.85rem;color:var(--muted);margin-bottom:1rem;}
+    .contact-detail{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;}
+    .contact-detail .icon{font-size:1rem;}
+    .contact-detail a{font-family:var(--mono);font-size:.88rem;color:var(--accent);text-decoration:none;}
+    .contact-detail a:hover{text-decoration:underline;}
+    .contact-detail span{font-family:var(--mono);font-size:.88rem;color:var(--accent);}
+
+    /* ── EJ2 ── */
+    .ej2-wrapper{padding:0 3rem 2rem;}
+    .card-gallery{display:flex;flex-wrap:wrap;justify-content:center;gap:1.25rem;}
+    .card{width:200px;flex-shrink:0;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;display:flex;flex-direction:column;gap:.75rem;transition:border-color .2s,transform .2s;overflow:hidden;}
+    .card:hover{border-color:var(--accent);transform:translateY(-3px);}
+    .card-thumb{width:100%;height:110px;border-radius:8px;object-fit:cover;display:block;}
+    .card h3{font-size:.95rem;font-weight:700;color:var(--text);}
+    .card p.short{font-size:.82rem;color:var(--muted);}
+    .card-extra{font-size:.8rem;color:var(--muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height .45s ease,opacity .3s;opacity:0;}
+    .card.expanded .card-extra{max-height:300px;opacity:1;}
+    .card-btn{display:inline-block;padding:.4rem 1rem;background:transparent;border:1px solid var(--accent);border-radius:6px;color:var(--accent);font-size:.8rem;font-family:var(--mono);cursor:pointer;text-align:center;transition:background .2s,color .2s;}
+    .card-btn:hover{background:var(--accent);color:#000;}
+
+    /* ── EJ3 ── */
+    .ej3-wrapper{padding:0 3rem 3rem;}
+    .hero-section{display:flex;justify-content:space-between;align-items:center;gap:3rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:3rem;width:100%;}
+    .hero-text{flex:1.6;}
+    .hero-text h2{font-size:2rem;font-weight:700;color:var(--text);line-height:1.2;margin-bottom:1rem;}
+    .hero-text h2 em{color:var(--accent);font-style:normal;}
+    .hero-text p{color:var(--muted);font-size:.95rem;margin-bottom:1.5rem;max-width:480px;}
+    .hero-btn{display:inline-block;padding:.7rem 1.8rem;background:var(--accent);color:#000;border-radius:8px;font-weight:700;font-size:.9rem;cursor:pointer;transition:opacity .2s;text-decoration:none;border:none;}
+    .hero-btn:hover{opacity:.85;}
+    .hero-right{flex:1;display:flex;flex-direction:column;gap:1rem;}
+    .hero-image{width:100%;aspect-ratio:4/3;border-radius:var(--radius);object-fit:cover;display:block;}
+    .hero-section.vertical{flex-direction:column;align-items:stretch;}
+    .hero-section.vertical .hero-right{flex-direction:row;}
+    .hero-section.vertical .hero-image{flex:1;aspect-ratio:4/3;}
+
+    .toggle-bar{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;}
+    .toggle-btn{padding:.4rem 1.1rem;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:.82rem;cursor:pointer;font-family:var(--mono);transition:all .2s;}
+    .toggle-btn.active{background:var(--accent2);border-color:var(--accent2);color:#fff;}
+    .toggle-label{color:var(--muted);font-size:.85rem;}
+
+
+
+    /* ── Modal ── */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;align-items:center;justify-content:center;}
+    .modal-overlay.open{display:flex;}
+    .modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;width:100%;max-width:420px;position:relative;}
+    .modal h3{font-family:var(--mono);color:var(--accent);font-size:1rem;margin-bottom:1.5rem;}
+    .modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;}
+    .modal-close:hover{color:var(--text);}
+    .form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;}
+    .form-group label{font-size:.8rem;color:var(--muted);font-family:var(--mono);}
+    .form-group input,.form-group textarea,.form-group select{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;color:var(--text);font-family:var(--sans);font-size:.9rem;outline:none;transition:border-color .2s;}
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent);}
+    .form-group textarea{resize:vertical;min-height:80px;}
+    .form-group select option{background:var(--card);}
+    .form-submit{width:100%;padding:.75rem;background:var(--accent);color:#000;border:none;border-radius:8px;font-weight:700;font-size:.95rem;cursor:pointer;transition:opacity .2s;margin-top:.5rem;}
+    .form-submit:hover{opacity:.85;}
+    .form-success{display:none;text-align:center;padding:1.5rem 0;}
+    .form-success .check{font-size:2.5rem;margin-bottom:.5rem;}
+    .form-success p{color:var(--accent);font-family:var(--mono);font-size:.9rem;}
+
+    footer{text-align:center;padding:2rem;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border);font-family:var(--mono);}
+    footer span{color:var(--accent);}
+  </style>
+</head>
+<body>
+
+<header class="doc-header">
+  <h1>// Ejercicios Flexbox</h1>
+  <p>Curso de Programación Web — Práctica de diseño con CSS Flexbox</p>
+</header>
+
+<!-- ════════ EJ1 – NAVBAR ════════ -->
+<div class="section-label">
+  <span class="badge">Ejercicio 1</span>
+  <h2>Barra de Navegación</h2>
+</div>
+
+<div class="ej1-wrapper">
+  <nav class="navbar">
+    <div class="logo">MiSitio</div>
+    <ul>
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li class="nav-item-contact">
+        <a href="#contacto">Contacto</a>
+        <div class="contact-dropdown">
+          <p>Nombre</p><strong>Erik</strong>
+          <p style="margin-top:.6rem">Teléfono</p><strong>970 908 930</strong>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!-- INICIO -->
+<div id="inicio" class="section-label">
+  <span class="badge" style="background:var(--accent3)">Inicio</span>
+  <h2>Bienvenido a MiSitio</h2>
+</div>
+<div class="nav-section">
+  <div class="section-block">
+    <p style="color:var(--muted);font-size:.95rem;max-width:600px">
+      Bienvenido a la página de Erik. Aquí encontrarás información sobre diseño web,
+      desarrollo frontend y los mejores recursos para aprender programación web desde cero.
+    </p>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
+<div id="servicios" class="section-label">
+  <span class="badge" style="background:var(--accent3)">Servicios</span>
+  <h2>Lo que ofrezco</h2>
+</div>
+<div class="nav-section">
+  <div class="section-block">
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="s-icon">🎨</div>
+        <h4>Diseño UI/UX</h4>
+        <p>Interfaces modernas, intuitivas y centradas en el usuario. Prototipado con Figma.</p>
+        <div class="service-price">Desde S/ 200</div>
+      </div>
+      <div class="service-card">
+        <div class="s-icon">💻</div>
+        <h4>Desarrollo Web</h4>
+        <p>Sitios responsivos con HTML, CSS y JavaScript. Código limpio y semántico.</p>
+        <div class="service-price">Desde S/ 350</div>
+      </div>
+      <div class="service-card">
+        <div class="s-icon">📱</div>
+        <h4>Diseño Responsivo</h4>
+        <p>Adaptación a todos los dispositivos usando Flexbox y CSS Grid.</p>
+        <div class="service-price">Desde S/ 150</div>
+      </div>
+      <div class="service-card">
+        <div class="s-icon">⚡</div>
+        <h4>Optimización Web</h4>
+        <p>Mejora de velocidad, compresión de imágenes y SEO básico.</p>
+        <div class="service-price">Desde S/ 120</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GALERÍA -->
+<div id="galeria" class="section-label">
+  <span class="badge" style="background:var(--accent3)">Galería</span>
+  <h2>Proyectos de Diseño Web</h2>
+</div>
+<div class="nav-section">
+  <div class="section-block">
+    <div class="photo-gallery">
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=400&h=260&fit=crop" alt="UI Moderno"/>
+        <div class="photo-caption">Diseño UI Moderno</div>
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=260&fit=crop" alt="HTML CSS"/>
+        <div class="photo-caption">HTML &amp; CSS</div>
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=260&fit=crop" alt="Frontend"/>
+        <div class="photo-caption">Desarrollo Frontend</div>
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=400&h=260&fit=crop" alt="Responsivo"/>
+        <div class="photo-caption">Diseño Responsivo</div>
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?w=400&h=260&fit=crop" alt="Layout"/>
+        <div class="photo-caption">Flexbox Layout</div>
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=260&fit=crop" alt="Programación"/>
+        <div class="photo-caption">Programación Web</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BLOG -->
+<div id="blog" class="section-label">
+  <span class="badge" style="background:var(--accent3)">Blog</span>
+  <h2>Artículos recientes</h2>
+</div>
+<div class="nav-section">
+  <div class="section-block">
+    <div class="blog-list">
+      <div class="blog-item">
+        <div class="blog-date">Abr 2025</div>
+        <div class="blog-content">
+          <div class="blog-tag">CSS</div>
+          <h4>Guía completa de Flexbox para principiantes</h4>
+          <p>Aprende a usar display:flex, justify-content, align-items y gap para crear layouts modernos sin complicaciones desde cero.</p>
+        </div>
+      </div>
+      <div class="blog-item">
+        <div class="blog-date">Mar 2025</div>
+        <div class="blog-content">
+          <div class="blog-tag">HTML</div>
+          <h4>Etiquetas semánticas: qué son y por qué importan</h4>
+          <p>Usar &lt;header&gt;, &lt;main&gt; y &lt;footer&gt; correctamente mejora el SEO y la accesibilidad de tu sitio web.</p>
+        </div>
+      </div>
+      <div class="blog-item">
+        <div class="blog-date">Feb 2025</div>
+        <div class="blog-content">
+          <div class="blog-tag">JavaScript</div>
+          <h4>5 errores comunes al empezar con JavaScript</h4>
+          <p>Desde confundir == con === hasta no entender el scope, estos son los tropiezos más frecuentes y cómo evitarlos.</p>
+        </div>
+      </div>
+      <div class="blog-item">
+        <div class="blog-date">Ene 2025</div>
+        <div class="blog-content">
+          <div class="blog-tag">Diseño</div>
+          <h4>Cómo elegir la paleta de colores para tu sitio web</h4>
+          <p>Teoría del color aplicada al diseño web: contraste, accesibilidad y consistencia visual en pocos pasos sencillos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACTO -->
+<div id="contacto" class="section-label">
+  <span class="badge" style="background:var(--accent3)">Contacto</span>
+  <h2>Información de contacto</h2>
+</div>
+<div class="nav-section">
+  <div class="section-block">
+    <div class="contact-block">
+      <div class="contact-info">
+        <h4>Erik</h4>
+        <p class="subtitle">Desarrollador Web · Cusco, Perú</p>
+        <div class="contact-detail">
+          <span class="icon">📞</span>
+          <a href="tel:+51970908930">970 908 930</a>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">📍</span>
+          <span>Cusco, Perú</span>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">🎓</span>
+          <span>Programación Web</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════ EJ2 – GALERÍA DE TARJETAS ════════ -->
+<div class="section-label">
+  <span class="badge">Ejercicio 2</span>
+  <h2>Galería de Tarjetas</h2>
+</div>
+
+<div class="ej2-wrapper">
+  <div class="card-gallery">
+
+    <div class="card">
+      <img class="card-thumb" src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=300&h=160&fit=crop" alt="Diseño Web"/>
+      <h3>Diseño Web</h3>
+      <p class="short">Interfaces modernas y atractivas.</p>
+      <p class="card-extra">El diseño web combina principios visuales con usabilidad. Incluye tipografía, color, espaciado y jerarquía visual. Herramientas más usadas: Figma, Adobe XD y Canva.</p>
+      <button class="card-btn" onclick="toggleCard(this)">Ver más</button>
+    </div>
+
+    <div class="card">
+      <img class="card-thumb" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=300&h=160&fit=crop" alt="Desarrollo"/>
+      <h3>Desarrollo</h3>
+      <p class="short">Front-end y back-end actuales.</p>
+      <p class="card-extra">El desarrollo web se divide en frontend (HTML, CSS, JS) y backend (servidores y bases de datos). Frameworks populares: React, Vue, Node.js y Laravel.</p>
+      <button class="card-btn" onclick="toggleCard(this)">Ver más</button>
+    </div>
+
+    <div class="card">
+      <img class="card-thumb" src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=300&h=160&fit=crop" alt="Responsive"/>
+      <h3>Responsive</h3>
+      <p class="short">Adaptable a cualquier pantalla.</p>
+      <p class="card-extra">Usa media queries, Flexbox y CSS Grid para que tu sitio se vea bien en cualquier dispositivo. El principio base es "mobile-first": diseñar primero para móvil.</p>
+      <button class="card-btn" onclick="toggleCard(this)">Ver más</button>
+    </div>
+
+    <div class="card">
+      <img class="card-thumb" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=300&h=160&fit=crop" alt="Rendimiento"/>
+      <h3>Rendimiento</h3>
+      <p class="short">Velocidad y tiempos de carga.</p>
+      <p class="card-extra">Un sitio rápido mejora la experiencia y el SEO. Técnicas: imágenes en formato WebP, lazy loading, minificación de CSS/JS y uso de CDN para archivos estáticos.</p>
+      <button class="card-btn" onclick="toggleCard(this)">Ver más</button>
+    </div>
+
+    <div class="card">
+      <img class="card-thumb" src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=300&h=160&fit=crop" alt="Seguridad"/>
+      <h3>Seguridad</h3>
+      <p class="short">Ciberseguridad para sitios web.</p>
+      <p class="card-extra">Protege tu sitio con HTTPS, validación de formularios y sanitización de datos. Debes conocer y prevenir ataques como XSS, CSRF e inyección SQL.</p>
+      <button class="card-btn" onclick="toggleCard(this)">Ver más</button>
+    </div>
+
+    <div class="card">
+      <img class="card-thumb" src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=300&h=160&fit=crop" alt="SEO"/>
+      <h3>SEO</h3>
+      <p class="short">Posicionamiento en buscadores.</p>
+      <p class="card-extra">Mejora tu visibilidad en Google con etiquetas correctas, URLs amigables, contenido de calidad y tiempos de carga rápidos. Es clave para atraer tráfico orgánico.</p>
+      <button class="card-btn" onclick="toggleCard(this)">Ver más</button>
+    </div>
+
+    <div class="card">
+      <img class="card-thumb" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=300&h=160&fit=crop" alt="E-commerce"/>
+      <h3>E-commerce</h3>
+      <p class="short">Tiendas en línea funcionales.</p>
+      <p class="card-extra">Las tiendas online incluyen catálogo, carrito y pasarelas de pago como Stripe o PayPal. Plataformas populares: WooCommerce (WordPress) y Shopify.</p>
+      <button class="card-btn" onclick="toggleCard(this)">Ver más</button>
+    </div>
+
+    <div class="card">
+      <img class="card-thumb" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=300&h=160&fit=crop" alt="Analytics"/>
+      <h3>Analytics</h3>
+      <p class="short">Métricas del comportamiento.</p>
+      <p class="card-extra">Con Google Analytics y Hotjar puedes ver cuántas personas visitan tu sitio, qué páginas ven más y desde qué país o dispositivo acceden.</p>
+      <button class="card-btn" onclick="toggleCard(this)">Ver más</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════ EJ3 – SECCIÓN HERO ════════ -->
+<div class="section-label">
+  <span class="badge">Ejercicio 3</span>
+  <h2>Sección Principal (Hero)</h2>
+</div>
+
+
+<div class="ej3-wrapper">
+  <div class="toggle-bar">
+    <span class="toggle-label">Modo:</span>
+    <button class="toggle-btn active" id="btn-h" onclick="setDir('horizontal')">Horizontal</button>
+    <button class="toggle-btn" id="btn-v" onclick="setDir('vertical')">Vertical (flex-direction: column)</button>
+  </div>
+
+  <section class="hero-section" id="hero">
+    <div class="hero-text">
+      <h2>Aprende a diseñar con <em>Flexbox</em></h2>
+      <p>Flexbox es un modelo de diseño CSS que permite distribuir el espacio y alinear elementos de forma eficiente, incluso cuando su tamaño es desconocido o dinámico.</p>
+      <button class="hero-btn" onclick="document.getElementById('modal-form').classList.add('open')">Comenzar ahora</button>
+    </div>
+    <div class="hero-right">
+      <img class="hero-image"
+           src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=340&fit=crop"
+           alt="Persona programando"/>
+      <img class="hero-image"
+           src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&h=340&fit=crop"
+           alt="Diseño en pantalla"/>
+    </div>
+  </section>
+
+
+</div>
+
+
+<!-- ════════ MODAL FORMULARIO ════════ -->
+<div class="modal-overlay" id="modal-form">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <div id="form-content">
+      <h3>// Formulario de inscripción</h3>
+      <div class="form-group">
+        <label>Nombre completo</label>
+        <input type="text" id="f-nombre" placeholder="Tu nombre completo"/>
+      </div>
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" id="f-email" placeholder="correo@ejemplo.com"/>
+      </div>
+      <div class="form-group">
+        <label>Tema de interés</label>
+        <select id="f-tema">
+          <option value="">Selecciona un tema...</option>
+          <option>Diseño Web con CSS</option>
+          <option>Desarrollo Frontend</option>
+          <option>CSS Flexbox &amp; Grid</option>
+          <option>JavaScript desde cero</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Mensaje (opcional)</label>
+        <textarea id="f-mensaje" placeholder="¿Tienes alguna pregunta?"></textarea>
+      </div>
+      <button class="form-submit" onclick="submitForm()">Enviar mensaje ✓</button>
+    </div>
+
+    <div class="form-success" id="form-success">
+      <div class="check">✅</div>
+      <p>¡Mensaje enviado con éxito!</p>
+      <p style="color:var(--muted);font-size:.8rem;margin-top:.5rem">Erik te responderá pronto al 970 908 930</p>
+      <button class="form-submit" style="margin-top:1.2rem" onclick="closeModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+
+<footer>
+  Ejercicios de <span>CSS Flexbox</span> — Programación Web · <span>Erik</span> · 970 908 930
+</footer>
+
+<script>
+  function toggleCard(btn) {
+    const card = btn.closest('.card');
+    card.classList.toggle('expanded');
+    btn.textContent = card.classList.contains('expanded') ? 'Ver menos' : 'Ver más';
+  }
+
+  function setDir(dir) {
+    const hero = document.getElementById('hero');
+    document.getElementById('btn-h').classList.toggle('active', dir === 'horizontal');
+    document.getElementById('btn-v').classList.toggle('active', dir === 'vertical');
+    hero.classList.toggle('vertical', dir === 'vertical');
+  }
+
+  function submitForm() {
+    const nombre = document.getElementById('f-nombre').value.trim();
+    const email  = document.getElementById('f-email').value.trim();
+    if (!nombre || !email) { alert('Por favor completa nombre y correo.'); return; }
+    document.getElementById('form-content').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('modal-form').classList.remove('open');
+    setTimeout(() => {
+      document.getElementById('form-content').style.display = 'block';
+      document.getElementById('form-success').style.display = 'none';
+      ['f-nombre','f-email','f-mensaje'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('f-tema').selectedIndex = 0;
+    }, 300);
+  }
+</script>
+</body>
+</html>
