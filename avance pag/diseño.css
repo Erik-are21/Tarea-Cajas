@@ -1,0 +1,208 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+/* navegacion */
+.navbar {
+  background-color: #003366;
+  padding: 10px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+  font-size: 16px;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* encabezado */
+.header {
+  background-color: #0055aa;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.header h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.header p {
+  font-size: 16px;
+}
+
+/* contenido principal */
+.contenido {
+  margin: 20px;
+}
+
+/* presentacion */
+.presentacion {
+  background-color: white;
+  border: 1px solid #cccccc;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.presentacion h2 {
+  color: #003366;
+}
+
+/* productos - cajas */
+.productos {
+  margin-bottom: 20px;
+}
+
+.productos h2 {
+  color: #003366;
+}
+
+.cajas-productos {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.caja {
+  background-color: white;
+  border: 1px solid #aaaaaa;
+  padding: 15px;
+  width: 180px;
+  text-align: center;
+}
+
+.caja-foto {
+  width: 100%;
+  height: 100px;
+  background-color: #dddddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.caja p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.caja .precio {
+  color: #cc0000;
+  font-weight: bold;
+}
+
+/* fotos - galeria simple */
+.fotos {
+  background-color: white;
+  border: 1px solid #cccccc;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.fotos h2 {
+  color: #003366;
+}
+
+.galeria {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.foto-item {
+  width: 150px;
+  height: 110px;
+  background-color: #cccccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  border: 1px solid #aaaaaa;
+}
+
+/* redes sociales */
+.redes {
+  background-color: white;
+  border: 1px solid #cccccc;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.redes h2 {
+  color: #003366;
+}
+
+.redes ul {
+  list-style: none;
+  padding: 0;
+}
+
+.redes ul li {
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.redes ul li a {
+  color: #0055aa;
+  text-decoration: none;
+}
+
+.redes ul li a:hover {
+  text-decoration: underline;
+}
+
+/* contacto */
+.contacto {
+  background-color: white;
+  border: 1px solid #cccccc;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.contacto h2 {
+  color: #003366;
+}
+
+.contacto p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+.contacto input,
+.contacto textarea {
+  display: block;
+  width: 300px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 6px;
+  border: 1px solid #aaaaaa;
+  font-size: 14px;
+}
+
+.contacto button {
+  background-color: #003366;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* pie de pagina */
+.footer {
+  background-color: #003366;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 13px;
+}
